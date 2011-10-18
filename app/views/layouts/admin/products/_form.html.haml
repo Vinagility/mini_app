@@ -1,0 +1,16 @@
+= f.foldable_inputs :name => :information, :class => 'off' do
+
+  = f.input :name
+  = f.input :price
+  = f.input :description, :as => 'text'
+
+  = f.custom_input :image, :css => 'file' do
+    = f.file_field :image
+    - if f.object.image?
+      %p.remove
+        %strong
+          = link_to File.basename(f.object.image.url), f.object.image.url
+        %span
+          &nbsp;/&nbsp;
+          != t('.delete_file')
+          = f.check_box :remove_image

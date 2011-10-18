@@ -1,0 +1,35 @@
+en:
+  admin:
+    shared:
+      menu:
+        shop: My shop
+        products: Products
+        orders: Orders
+
+    products:
+      index:
+        title: Listing products
+        help: Lorem ipsum dolor....
+        new: New product
+        no_items: "No products found. Create the first one by clicking <a href='%{url}'>here</a>."
+
+      new:
+        title: New product
+        help: Lorem ipsum dolor....
+
+      edit:
+        title: Editing product
+        help: Lorem ipsum dolor....
+
+    orders:
+      index:
+        title: Orders
+        help: Lorem ipsum dolor....
+        no_items: "No orders found."
+
+
+  formtastic:
+    hints:
+      product:
+        name: Full name of th product
+        price: Price in dollars (do not add the currency)

@@ -1,0 +1,12 @@
+@import "helpers";
+@import "menu";
+
+#menu li.shop a em { @include menu-assets-icon; }
+body.products {
+  $color: red;
+  #menu li.shop {
+    @include menu-color($color);
+    em { @include menu-assets-icon(true); }
+  }
+  #submenu { @include submenu-color($color); }
+}

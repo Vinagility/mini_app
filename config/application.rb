@@ -13,6 +13,26 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module MiniApp
   class Application < Rails::Application
+
+    def self.activate
+      if Rails.env.development?
+        load File.join(config.root, 'lib', 'shop.rb')
+      else
+        require File.join(config.root, 'lib', 'shop.rb')
+      end
+
+      # entry point for the shop models (products, ...etc)
+      Locomotive.config.context_assign_extensions = {
+        'shop' => Shop::Liquid::Drops::Shop.new
+      }
+
+      # if you want to modify the MainMenu or the SettingsMenu, put your code below
+      require 'admin/main_menu_cell'
+      ::Admin::MainMenuCell.update_for(:shop) do |menu|
+        menu.add_before :settings, :shop, :url => menu.admin_products_url
+      end
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -43,5 +63,7 @@ module MiniApp
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.to_prepare &method(:activate).to_proc
   end
 end

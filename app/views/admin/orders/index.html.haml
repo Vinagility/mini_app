@@ -1,0 +1,20 @@
+- title t('.title')
+
+- content_for :submenu do
+  = render_cell 'admin/shop_menu', :show
+
+%p!= t('.help')
+
+- if @orders.empty?
+  %p.no-items!= t('.no_items')
+- else
+  %ul{ :id => 'orders-list', :class => "list" }
+    - @orders.each do |order|
+      %li
+        %em
+        %strong
+          = order.total
+        .more
+          %span
+            != t('admin.contents.index.created_at')
+          = l order.created, :format => :short rescue 'n/a'

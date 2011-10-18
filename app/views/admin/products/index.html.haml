@@ -1,0 +1,25 @@
+- title t('.title')
+
+- content_for :submenu do
+  = render_cell 'admin/shop_menu', :show
+
+- content_for :actions do
+  = render 'admin/shared/actions/products'
+
+%p!= t('.help')
+
+- if @products.empty?
+  %p.no-items!= t('.no_items', :url => new_admin_product_url)
+- else
+  %ul{ :id => 'products-list', :class => "list" }
+    - @products.each do |product|
+      %li
+        %em
+        %strong
+          = link_to product.name, edit_admin_product_url(product)
+        .more
+          %span
+            != t('admin.contents.index.updated_at')
+          = l product.updated_at, :format => :short rescue 'n/a'
+
+          = link_to image_tag('admin/list/icons/trash.png', :alt => t('admin.buttons.delete')), admin_product_url(product), :class => 'remove', :confirm => t('admin.messages.confirm'), :method => :delete
